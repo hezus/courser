@@ -212,5 +212,18 @@ Go to `http://localhost:4200` and check if stuff works. You should now have a wo
 ###5 Git
 Add your progress to Git
 
-## III Add students to courses 
+## III Time to split up some code
+
+###1 Make a component for Course
+
+Create a component in its own file that only does a render for Course
+
+
+###2 Make a component for CourseCreate
+
+1. Create a component `CourseCreate` in its own file that only handles the create
+2. Move the `<form>` and the  `createCourse()` method there
+3. Call the reload method in `Courses` from within the `CourseCreate` component
+
+## IV Add a list for Students
 

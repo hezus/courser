@@ -4,7 +4,9 @@ import Courses from './Courses';
 class App extends React.Component {
   render() {
     return (
-       <Courses />
+       <div className="app">
+        <Courses />
+       </div>
     );
   }
 }
