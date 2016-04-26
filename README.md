@@ -21,10 +21,12 @@ We will be using the [react-starter provided by Rory](https://github.com/Codaiss
 I have already created a simple rails backend for you to be downloaded at: [todo](todo)
 
 At the end of this exercise you should:
-> Learn about the react router
+
+> Know what a callback function is
+> Understand .bind(this)
 > Create forms for various resources
 > Create a structure in your application
-
+> Learn about the react router
 
 # All courses
 Lets start by making a overview page for all the courses. We will need to create React components for all Courses and for a single Course.
@@ -146,13 +148,69 @@ We do this by adding a jQuery ajax request and then changing the state. When we 
 
 Do you know what bind(this) does?
 
-###7 Test
+###4 Test
 Go to `http://localhost:4200` and check if stuff works. It should look like this
 
 ![Data](/docs/data.png?raw=true)
 
-###8 Git
+###5 Git
 Add your progress to Git
 
+## II Add a create resource
 
+###1 Add a form
+
+Add a form to the render method. The form will call another method on submit.
+
+```
+<form onSubmit={this.createCourse.bind(this)}>
+  <input type="text" className="form-control" ref="name" placeholder="What will the project be named?" />
+  <textarea className="form-control" ref="description" placeholder="Describe the project.."></textarea>
+  <button type="submit" className="btn btn-primary">Create Project</button>
+</form>
+```
+
+###2 Handle the form
+We need a function to get the information from the form and submit it with a AJAX request.
+
+```
+createCourse(event){
+    event.preventDefault();
+
+    let newCourse = {
+      name: this.refs.name.value,
+      description: this.refs.description.value
+    };
+
+    jQuery.ajax({
+      type: "POST",
+      url: "http://localhost:3000/courses.json",
+      data: JSON.stringify({
+        course: newCourse
+      }),
+      contentType: "application/json",
+      dataType: "json"
+
+    }).done(function( data ) {
+      alert( "Data saved: " + data );
+    })
+    .fail(function(error) {
+      console.log(error);
+    });
+  }
+```
+
+###3 Reload the data
+Offcourse showing a alert is really fancy already. Lets make a function  to reload the data
+
+1. Move the AJAX GET function out of the componentDidMount function and make a own function for it.
+2. Call this function inside the done() block of the ajax post function. You cannot use this.function() because it is out of scope, you need to reassign this.
+
+###4 Test
+Go to `http://localhost:4200` and check if stuff works. You should now have a working form
+
+###5 Git
+Add your progress to Git
+
+## III Add students to courses 
 
